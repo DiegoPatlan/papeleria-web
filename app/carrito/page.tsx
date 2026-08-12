@@ -28,55 +28,73 @@ export default function CarritoPage() {
     return;
   }
 
-  // Número de WhatsApp de la papelería
-  // Formato: 52 + número, sin espacios ni símbolos.
   const telefono = "524621759813";
 
-  let mensaje = "🛒 NUEVO PEDIDO - PAPELERÍA\n\n";
+  // Emojis mediante Unicode
+  const carritoEmoji = "\u{1F6D2}";
+  const usuarioEmoji = "\u{1F464}";
+  const cajaEmoji = "\u{1F4E6}";
+  const categoriaEmoji = "\u{1F4C2}";
+  const cantidadEmoji = "\u{1F522}";
+  const precioEmoji = "\u{1F4B5}";
+  const dineroEmoji = "\u{1F4B0}";
+  const comentarioEmoji = "\u{1F4DD}";
+  const graciasEmoji = "\u{1F64F}";
 
-  mensaje += `👤 Cliente: ${nombre.trim()}\n\n`;
+  let mensaje =
+    `${carritoEmoji} NUEVO PEDIDO - PAPELERÍA\n\n`;
 
-  mensaje += "📦 PRODUCTOS\n\n";
+  mensaje +=
+    `${usuarioEmoji} Cliente: ${nombre.trim()}\n\n`;
+
+  mensaje +=
+    `${cajaEmoji} PRODUCTOS\n\n`;
 
   carrito.forEach((producto) => {
-    const subtotal = producto.precio * producto.cantidad;
+    const subtotal =
+      producto.precio * producto.cantidad;
 
-    let icono = "📦";
+    let iconoCategoria = cajaEmoji;
 
     if (producto.categoria === "Escolar") {
-      icono = "📚";
+      iconoCategoria = "\u{1F4DA}";
     }
 
     if (producto.categoria === "Oficina") {
-      icono = "📁";
+      iconoCategoria = "\u{1F4C1}";
     }
 
     if (producto.categoria === "Tecnología") {
-      icono = "💻";
+      iconoCategoria = "\u{1F4BB}";
     }
 
     mensaje +=
-      `${icono} ${producto.nombre}\n` +
-      `📂 Categoría: ${producto.categoria}\n` +
-      `🔢 Cantidad: ${producto.cantidad}\n` +
-      `💵 Precio: $${producto.precio.toFixed(2)}\n` +
-      `💰 Subtotal: $${subtotal.toFixed(2)}\n\n`;
+      `${iconoCategoria} ${producto.nombre}\n` +
+      `${categoriaEmoji} Categoría: ${producto.categoria}\n` +
+      `${cantidadEmoji} Cantidad: ${producto.cantidad}\n` +
+      `${precioEmoji} Precio: $${producto.precio.toFixed(2)}\n` +
+      `${dineroEmoji} Subtotal: $${subtotal.toFixed(2)}\n\n`;
   });
 
   mensaje += "━━━━━━━━━━━━━━━━━━\n\n";
 
-  mensaje += `📦 Productos: ${totalProductos}\n`;
-  mensaje += `💰 TOTAL: $${totalPedido.toFixed(2)}\n`;
+  mensaje +=
+    `${cajaEmoji} Productos: ${totalProductos}\n`;
+
+  mensaje +=
+    `${dineroEmoji} TOTAL: $${totalPedido.toFixed(2)}\n`;
 
   if (comentarios.trim()) {
-    mensaje += `\n📝 Comentarios:\n${comentarios.trim()}\n`;
+    mensaje +=
+      `\n${comentarioEmoji} Comentarios:\n` +
+      `${comentarios.trim()}\n`;
   }
 
-  mensaje += "\n🙏 Gracias.";
+  mensaje += `\n${graciasEmoji} Gracias.`;
 
-  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(
-    mensaje
-  )}`;
+  const url =
+    `https://wa.me/${telefono}?text=` +
+    encodeURIComponent(mensaje);
 
   window.open(url, "_blank");
 };
@@ -167,35 +185,27 @@ export default function CarritoPage() {
             </div>
           ) : (
             <>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns:
-                    "minmax(0, 1fr) 350px",
-                  gap: "30px",
-                  alignItems: "start",
-                }}
-              >
+              <div className="carrito-layout">
                 {/* PRODUCTOS */}
-                <div>
-                  {carrito.map((producto) => {
+                <div className="carrito-productos">
+                    {carrito.map((producto) => {
                     const subtotal =
                       producto.precio *
                       producto.cantidad;
 
                     return (
                       <div
-                        key={`${producto.categoria}-${producto.id}`}
-                        style={{
-                          background: "white",
-                          padding: "20px",
-                          borderRadius: "18px",
-                          marginBottom: "15px",
-                          border:
-                            "1px solid #e5e9f0",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "20px",
+                      key={`${producto.categoria}-${producto.id}`}
+                      className="carrito-producto"
+                      style={{
+                        background: "white",
+                        padding: "20px",
+                        borderRadius: "18px",
+                        marginBottom: "15px",
+                        border: "1px solid #e5e9f0",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "20px",
                         }}
                       >
                         <div
@@ -423,7 +433,7 @@ export default function CarritoPage() {
                 </div>
 
                 {/* RESUMEN */}
-                <aside
+                <aside className="carrito-resumen"
                   style={{
                     background: "white",
                     padding: "30px",
