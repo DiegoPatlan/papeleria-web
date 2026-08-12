@@ -95,6 +95,18 @@ export default function TecnologiaPage() {
             </p>
           </div>
 
+          <div className="navegacion-categorias">
+            
+             <a href="/" className="boton-secundario">
+             🏠 Volver al inicio
+             </a>
+             
+             <a href="/#categorias" className="boton-principal">
+             📂 Elegir otra categoría
+             </a>
+             
+             </div>
+
           {/* PRODUCTOS */}
           <div className="categorias-grid">
             {productos.map((producto) => {
@@ -190,17 +202,6 @@ export default function TecnologiaPage() {
               );
             })}
           </div>
-          
-          <div className="navegacion-categorias">
-            <a href="/" className="boton-secundario">
-            🏠 Volver al inicio
-            </a>
-            
-            <a href="/#categorias" className="boton-principal">
-            📂 Elegir otra categoría
-            </a>
-            </div>
-
 
           {/* RESUMEN */}
           <div

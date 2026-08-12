@@ -97,6 +97,18 @@ export default function EscolaresPage() {
             </p>
           </div>
 
+          <div className="navegacion-categorias">
+            
+             <a href="/" className="boton-secundario">
+             🏠 Volver al inicio
+             </a>
+             
+             <a href="/#categorias" className="boton-principal">
+             📂 Elegir otra categoría
+             </a>
+             
+             </div>
+
           {/* PRODUCTOS */}
           <div className="categorias-grid">
             {productos.map((producto) => {
@@ -189,15 +201,6 @@ export default function EscolaresPage() {
               );
             })}
           </div>
-
-          <div className="navegacion-categorias">
-            <a href="/" className="boton-secundario">
-            🏠 Volver al inicio
-            </a>
-            <a href="/#categorias" className="boton-principal">
-            📂 Elegir otra categoría
-            </a>
-            </div>
 
           {/* RESUMEN */}
           <div
