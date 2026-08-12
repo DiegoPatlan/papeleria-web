@@ -98,37 +98,37 @@ export default function TecnologiaPage() {
           </div>
 
           <div className="navegacion-categorias">
-  <a href="/" className="boton-secundario">
-    🏠 Volver al inicio
-  </a>
+            <a href="/" className="boton-secundario">
+              🏠 Volver al inicio
+            </a>
 
-  <div className="selector-categorias">
-    <button
-      type="button"
-      className="boton-principal"
-      onClick={() =>
-        setMostrarCategorias(!mostrarCategorias)
-      }
-    >
-      📂 Elegir otra categoría
-      <span className="flecha-categorias">
-        {mostrarCategorias ? "▲" : "▼"}
-      </span>
-    </button>
+            <div className="selector-categorias">
+              <button
+                type="button"
+                className="boton-principal"
+                onClick={() =>
+                  setMostrarCategorias(!mostrarCategorias)
+                }
+              >
+                📂 Elegir otra categoría
+                <span className="flecha-categorias">
+                  {mostrarCategorias ? "▲" : "▼"}
+                </span>
+              </button>
 
-    {mostrarCategorias && (
-      <div className="menu-categorias">
-        <a href="/escolares">
-          📚 Escolares
-        </a>
+              {mostrarCategorias && (
+                <div className="menu-categorias">
+                  <a href="/escolares">
+                    📚 Escolares
+                  </a>
 
-        <a href="/oficina">
-          📁 Oficina
-        </a>
-      </div>
-    )}
-  </div>
-</div>
+                  <a href="/oficina">
+                    📁 Oficina
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
 
           {/* PRODUCTOS */}
           <div className="categorias-grid">

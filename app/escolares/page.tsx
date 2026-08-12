@@ -100,38 +100,38 @@ export default function EscolaresPage() {
           </div>
 
           <div className="navegacion-categorias">
-  <a href="/" className="boton-secundario">
-    🏠 Volver al inicio
-  </a>
+            <a href="/" className="boton-secundario">
+              🏠 Volver al inicio
+            </a>
 
-  <div className="selector-categorias">
-    <button
-      type="button"
-      className="boton-principal"
-      onClick={() =>
-        setMostrarCategorias(!mostrarCategorias)
-      }
-    >
-      📂 Elegir otra categoría
-      <span className="flecha-categorias">
-        {mostrarCategorias ? "▲" : "▼"}
-      </span>
-    </button>
+            <div className="selector-categorias">
+              <button
+                type="button"
+                className="boton-principal"
+                onClick={() =>
+                  setMostrarCategorias(!mostrarCategorias)
+                }
+              >
+                📂 Elegir otra categoría
+                <span className="flecha-categorias">
+                  {mostrarCategorias ? "▲" : "▼"}
+                </span>
+              </button>
 
-    {mostrarCategorias && (
-      <div className="menu-categorias">
-        
-        <a href="/oficina">
-          📁 Oficina
-        </a>
+              {mostrarCategorias && (
+                <div className="menu-categorias">
 
-        <a href="/tecnologia">
-          💻 Tecnología
-        </a>
-      </div>
-    )}
-  </div>
-</div>
+                  <a href="/oficina">
+                    📁 Oficina
+                  </a>
+
+                  <a href="/tecnologia">
+                    💻 Tecnología
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
 
 
           {/* PRODUCTOS */}
