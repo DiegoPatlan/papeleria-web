@@ -18,86 +18,57 @@ export default function CarritoPage() {
   const [comentarios, setComentarios] = useState("");
 
   const enviarWhatsApp = () => {
-  if (carrito.length === 0) {
-    alert("Tu pedido está vacío.");
-    return;
-  }
-
-  if (!nombre.trim()) {
-    alert("Por favor escribe tu nombre antes de enviar el pedido.");
-    return;
-  }
-
-  const telefono = "524621759813";
-
-  // Emojis mediante Unicode
-  const carritoEmoji = "\u{1F6D2}";
-  const usuarioEmoji = "\u{1F464}";
-  const cajaEmoji = "\u{1F4E6}";
-  const categoriaEmoji = "\u{1F4C2}";
-  const cantidadEmoji = "\u{1F522}";
-  const precioEmoji = "\u{1F4B5}";
-  const dineroEmoji = "\u{1F4B0}";
-  const comentarioEmoji = "\u{1F4DD}";
-  const graciasEmoji = "\u{1F64F}";
-
-  let mensaje =
-    `${carritoEmoji} NUEVO PEDIDO - PAPELERÍA\n\n`;
-
-  mensaje +=
-    `${usuarioEmoji} Cliente: ${nombre.trim()}\n\n`;
-
-  mensaje +=
-    `${cajaEmoji} PRODUCTOS\n\n`;
-
-  carrito.forEach((producto) => {
-    const subtotal =
-      producto.precio * producto.cantidad;
-
-    let iconoCategoria = cajaEmoji;
-
-    if (producto.categoria === "Escolar") {
-      iconoCategoria = "\u{1F4DA}";
+    if (carrito.length === 0) {
+      alert("Tu pedido está vacío.");
+      return;
     }
 
-    if (producto.categoria === "Oficina") {
-      iconoCategoria = "\u{1F4C1}";
+    if (!nombre.trim()) {
+      alert("Por favor escribe tu nombre antes de enviar el pedido.");
+      return;
     }
 
-    if (producto.categoria === "Tecnología") {
-      iconoCategoria = "\u{1F4BB}";
+    const telefono = "524621759813";
+
+    let mensaje = "";
+
+    mensaje += "[NUEVO PEDIDO - PAPELERÍA]\n\n";
+
+    mensaje += "Cliente: " + nombre.trim() + "\n\n";
+
+    mensaje += "[PRODUCTOS]\n\n";
+
+    carrito.forEach((producto) => {
+      const subtotal =
+        producto.precio * producto.cantidad;
+
+      mensaje += "• " + producto.nombre + "\n";
+      mensaje += "  Categoría: " + producto.categoria + "\n";
+      mensaje += "  Cantidad: " + producto.cantidad + "\n";
+      mensaje += "  Precio: $" + producto.precio.toFixed(2) + "\n";
+      mensaje += "  Subtotal: $" + subtotal.toFixed(2) + "\n\n";
+    });
+
+    mensaje += "------------------------------\n\n";
+
+    mensaje += "Productos: " + totalProductos + "\n";
+    mensaje += "TOTAL: $" + totalPedido.toFixed(2) + "\n";
+
+    if (comentarios.trim()) {
+      mensaje += "\nComentarios:\n";
+      mensaje += comentarios.trim() + "\n";
     }
 
-    mensaje +=
-      `${iconoCategoria} ${producto.nombre}\n` +
-      `${categoriaEmoji} Categoría: ${producto.categoria}\n` +
-      `${cantidadEmoji} Cantidad: ${producto.cantidad}\n` +
-      `${precioEmoji} Precio: $${producto.precio.toFixed(2)}\n` +
-      `${dineroEmoji} Subtotal: $${subtotal.toFixed(2)}\n\n`;
-  });
+    mensaje += "\nGracias.";
 
-  mensaje += "━━━━━━━━━━━━━━━━━━\n\n";
+    const url =
+      "https://wa.me/" +
+      telefono +
+      "?text=" +
+      encodeURIComponent(mensaje);
 
-  mensaje +=
-    `${cajaEmoji} Productos: ${totalProductos}\n`;
-
-  mensaje +=
-    `${dineroEmoji} TOTAL: $${totalPedido.toFixed(2)}\n`;
-
-  if (comentarios.trim()) {
-    mensaje +=
-      `\n${comentarioEmoji} Comentarios:\n` +
-      `${comentarios.trim()}\n`;
-  }
-
-  mensaje += `\n${graciasEmoji} Gracias.`;
-
-  const url =
-    `https://wa.me/${telefono}?text=` +
-    encodeURIComponent(mensaje);
-
-  window.open(url, "_blank");
-};
+    window.location.href = url;
+  };
 
   return (
     <main className="pagina">
@@ -188,26 +159,26 @@ export default function CarritoPage() {
               <div className="carrito-layout">
                 {/* PRODUCTOS */}
                 <div className="carrito-productos">
-                    {carrito.map((producto) => {
+                  {carrito.map((producto) => {
                     const subtotal =
-                      producto.precio *
-                      producto.cantidad;
+                      producto.precio * producto.cantidad;
 
                     return (
                       <div
-                      key={`${producto.categoria}-${producto.id}`}
-                      className="carrito-producto"
-                      style={{
-                        background: "white",
-                        padding: "20px",
-                        borderRadius: "18px",
-                        marginBottom: "15px",
-                        border: "1px solid #e5e9f0",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "20px",
+                        key={`${producto.categoria}-${producto.id}`}
+                        className="carrito-producto"
+                        style={{
+                          background: "white",
+                          padding: "20px",
+                          borderRadius: "18px",
+                          marginBottom: "15px",
+                          border: "1px solid #e5e9f0",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "20px",
                         }}
                       >
+                        {/* ICONO DEL PRODUCTO */}
                         <div
                           style={{
                             width: "70px",
@@ -216,8 +187,7 @@ export default function CarritoPage() {
                             background: "#f1f5ff",
                             display: "flex",
                             alignItems: "center",
-                            justifyContent:
-                              "center",
+                            justifyContent: "center",
                             fontSize: "32px",
                             flexShrink: 0,
                           }}
@@ -225,9 +195,11 @@ export default function CarritoPage() {
                           {producto.icono}
                         </div>
 
+                        {/* INFORMACIÓN */}
                         <div
                           style={{
                             flex: 1,
+                            minWidth: 0,
                           }}
                         >
                           <span
@@ -254,17 +226,17 @@ export default function CarritoPage() {
                               color: "#7b8494",
                             }}
                           >
-                            ${producto.precio.toFixed(2)}
-                            {" "}c/u
+                            ${producto.precio.toFixed(2)} c/u
                           </span>
                         </div>
 
+                        {/* CANTIDAD */}
                         <div
                           style={{
                             display: "flex",
-                            alignItems:
-                              "center",
+                            alignItems: "center",
                             gap: "10px",
+                            flexShrink: 0,
                           }}
                         >
                           <button
@@ -278,10 +250,8 @@ export default function CarritoPage() {
                               width: "35px",
                               height: "35px",
                               border: "none",
-                              borderRadius:
-                                "8px",
-                              background:
-                                "#eef2ff",
+                              borderRadius: "8px",
+                              background: "#eef2ff",
                               fontSize: "18px",
                               cursor: "pointer",
                             }}
@@ -304,10 +274,8 @@ export default function CarritoPage() {
                               width: "35px",
                               height: "35px",
                               border: "none",
-                              borderRadius:
-                                "8px",
-                              background:
-                                "#4f46e5",
+                              borderRadius: "8px",
+                              background: "#4f46e5",
                               color: "white",
                               fontSize: "18px",
                               cursor: "pointer",
@@ -317,6 +285,7 @@ export default function CarritoPage() {
                           </button>
                         </div>
 
+                        {/* SUBTOTAL */}
                         <strong
                           style={{
                             minWidth: "90px",
@@ -326,6 +295,7 @@ export default function CarritoPage() {
                           ${subtotal.toFixed(2)}
                         </strong>
 
+                        {/* ELIMINAR */}
                         <button
                           onClick={() =>
                             eliminarProducto(
@@ -336,8 +306,7 @@ export default function CarritoPage() {
                           aria-label={`Eliminar ${producto.nombre}`}
                           style={{
                             border: "none",
-                            background:
-                              "transparent",
+                            background: "transparent",
                             fontSize: "20px",
                             cursor: "pointer",
                           }}
@@ -354,8 +323,7 @@ export default function CarritoPage() {
                       background: "white",
                       padding: "30px",
                       borderRadius: "20px",
-                      border:
-                        "1px solid #e5e9f0",
+                      border: "1px solid #e5e9f0",
                       marginTop: "25px",
                     }}
                   >
@@ -393,10 +361,10 @@ export default function CarritoPage() {
                         width: "100%",
                         padding: "13px 15px",
                         borderRadius: "10px",
-                        border:
-                          "1px solid #d9deea",
+                        border: "1px solid #d9deea",
                         fontSize: "15px",
                         outline: "none",
+                        boxSizing: "border-box",
                       }}
                     />
 
@@ -422,24 +390,24 @@ export default function CarritoPage() {
                         width: "100%",
                         padding: "13px 15px",
                         borderRadius: "10px",
-                        border:
-                          "1px solid #d9deea",
+                        border: "1px solid #d9deea",
                         fontSize: "15px",
                         resize: "vertical",
                         outline: "none",
+                        boxSizing: "border-box",
                       }}
                     />
                   </div>
                 </div>
 
                 {/* RESUMEN */}
-                <aside className="carrito-resumen"
+                <aside
+                  className="carrito-resumen"
                   style={{
                     background: "white",
                     padding: "30px",
                     borderRadius: "20px",
-                    border:
-                      "1px solid #e5e9f0",
+                    border: "1px solid #e5e9f0",
                     boxShadow:
                       "0 15px 40px rgba(42, 52, 75, 0.07)",
                     position: "sticky",
@@ -451,8 +419,7 @@ export default function CarritoPage() {
                   <div
                     style={{
                       display: "flex",
-                      justifyContent:
-                        "space-between",
+                      justifyContent: "space-between",
                       marginTop: "25px",
                     }}
                   >
@@ -475,8 +442,7 @@ export default function CarritoPage() {
                   <div
                     style={{
                       display: "flex",
-                      justifyContent:
-                        "space-between",
+                      justifyContent: "space-between",
                       fontSize: "20px",
                     }}
                   >
@@ -487,6 +453,7 @@ export default function CarritoPage() {
                     </strong>
                   </div>
 
+                  {/* WHATSAPP */}
                   <button
                     onClick={enviarWhatsApp}
                     style={{
@@ -505,6 +472,7 @@ export default function CarritoPage() {
                     📱 Enviar pedido por WhatsApp
                   </button>
 
+                  {/* VACIAR */}
                   <button
                     onClick={vaciarCarrito}
                     style={{
@@ -521,6 +489,7 @@ export default function CarritoPage() {
                     Vaciar pedido
                   </button>
 
+                  {/* SEGUIR COMPRANDO */}
                   <a
                     href="/#categorias"
                     style={{
