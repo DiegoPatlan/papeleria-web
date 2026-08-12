@@ -788,3 +788,29 @@ a {
     padding-right: 16px;
   }
 }
+
+.navegacion-categorias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.navegacion-categorias a {
+  text-decoration: none;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .navegacion-categorias {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navegacion-categorias a {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
