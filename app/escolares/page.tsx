@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useCart } from "../components/CartContext";
 
 const productos = [
@@ -48,6 +49,7 @@ const productos = [
 ];
 
 export default function EscolaresPage() {
+  const [mostrarCategorias, setMostrarCategorias] = useState(false);
   const {
     carrito,
     agregarProducto,
@@ -98,16 +100,39 @@ export default function EscolaresPage() {
           </div>
 
           <div className="navegacion-categorias">
-            
-             <a href="/" className="boton-secundario">
-             🏠 Volver al inicio
-             </a>
-             
-             <a href="/#categorias" className="boton-principal">
-             📂 Elegir otra categoría
-             </a>
-             
-             </div>
+  <a href="/" className="boton-secundario">
+    🏠 Volver al inicio
+  </a>
+
+  <div className="selector-categorias">
+    <button
+      type="button"
+      className="boton-principal"
+      onClick={() =>
+        setMostrarCategorias(!mostrarCategorias)
+      }
+    >
+      📂 Elegir otra categoría
+      <span className="flecha-categorias">
+        {mostrarCategorias ? "▲" : "▼"}
+      </span>
+    </button>
+
+    {mostrarCategorias && (
+      <div className="menu-categorias">
+        
+        <a href="/oficina">
+          📁 Oficina
+        </a>
+
+        <a href="/tecnologia">
+          💻 Tecnología
+        </a>
+      </div>
+    )}
+  </div>
+</div>
+
 
           {/* PRODUCTOS */}
           <div className="categorias-grid">
