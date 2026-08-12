@@ -1,69 +1,362 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+
+const productos = [
+  {
+    nombre: "Cuaderno profesional",
+    descripcion: "Cuaderno de pasta resistente para uso escolar.",
+    precio: "$45.00",
+    categoria: "Escolar",
+    icono: "📓",
+  },
+  {
+    nombre: "Kit de plumas",
+    descripcion: "Set de plumas de tinta azul, negra y roja.",
+    precio: "$35.00",
+    categoria: "Escolar",
+    icono: "🖊️",
+  },
+  {
+    nombre: "Memoria USB 64 GB",
+    descripcion: "Almacenamiento rápido para tus archivos.",
+    precio: "$149.00",
+    categoria: "Tecnología",
+    icono: "💾",
+  },
+  {
+    nombre: "Paquete de hojas",
+    descripcion: "500 hojas tamaño carta para impresión.",
+    precio: "$119.00",
+    categoria: "Oficina",
+    icono: "📄",
+  },
+];
+
+const categorias = [
+  {
+    nombre: "Productos escolares",
+    descripcion: "Todo lo necesario para clases y tareas.",
+    icono: "📚",
+  },
+  {
+    nombre: "Productos de oficina",
+    descripcion: "Material para tu oficina y trabajo.",
+    icono: "🗂️",
+  },
+  {
+    nombre: "Tecnología",
+    descripcion: "Accesorios y productos tecnológicos.",
+    icono: "💻",
+  },
+];
 
 export default function Home() {
+  const [productoActual, setProductoActual] = useState(0);
+
+  const siguienteProducto = () => {
+    setProductoActual((actual) =>
+      actual === productos.length - 1 ? 0 : actual + 1
+    );
+  };
+
+  const productoAnterior = () => {
+    setProductoActual((actual) =>
+      actual === 0 ? productos.length - 1 : actual - 1
+    );
+  };
+
+  const producto = productos[productoActual];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="pagina">
+
+      {/* HEADER */}
+      <header className="header">
+        <div className="contenedor header-contenido">
+
+          <div className="logo">
+            <div className="logo-icono">✏️</div>
+
+            <div>
+              <h1>Papelería</h1>
+              <span>Todo para ti</span>
+            </div>
+          </div>
+
+          <nav className="menu">
+            <a href="#inicio">Inicio</a>
+            <a href="#categorias">Categorías</a>
+            <a href="#mas-vendidos">Más vendidos</a>
+          </nav>
+
+          <button className="boton-pedido">
+            🛒 Mi pedido
+          </button>
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </header>
+
+
+      {/* HERO */}
+      <section id="inicio" className="hero">
+
+        <div className="contenedor hero-contenido">
+
+          <div className="hero-texto">
+
+            <span className="etiqueta">
+              ✨ Todo lo que necesitas en un solo lugar
+            </span>
+
+            <h2>
+              Material escolar,
+              <br />
+              oficina y <span>tecnología.</span>
+            </h2>
+
+            <p>
+              Encuentra fácilmente los productos que necesitas y
+              arma tu pedido para enviarlo directamente por WhatsApp.
+            </p>
+
+            <div className="hero-botones">
+              <a href="#categorias" className="boton-principal">
+                Ver productos
+              </a>
+
+              <a href="#mas-vendidos" className="boton-secundario">
+                Más vendidos →
+              </a>
+            </div>
+
+          </div>
+
+          <div className="hero-ilustracion">
+
+            <div className="tarjeta-flotante tarjeta-1">
+              📚
+            </div>
+
+            <div className="tarjeta-flotante tarjeta-2">
+              💻
+            </div>
+
+            <div className="hero-producto">
+              <div className="hero-producto-icono">
+                ✏️
+              </div>
+
+              <h3>
+                Todo para tus
+                <br />
+                proyectos
+              </h3>
+
+              <p>
+                Escolar • Oficina • Tecnología
+              </p>
+            </div>
+
+          </div>
+
         </div>
-      </main>
-    </div>
+
+      </section>
+
+
+      {/* CATEGORIAS */}
+      <section id="categorias" className="seccion categorias">
+
+        <div className="contenedor">
+
+          <div className="titulo-seccion">
+            <span>ENCUENTRA LO QUE NECESITAS</span>
+
+            <h2>
+              Compra por categoría
+            </h2>
+
+            <p>
+              Selecciona una categoría para comenzar tu pedido.
+            </p>
+          </div>
+
+
+          <div className="categorias-grid">
+
+            {categorias.map((categoria) => (
+
+              <button
+                key={categoria.nombre}
+                className="categoria-card"
+              >
+
+                <div className="categoria-icono">
+                  {categoria.icono}
+                </div>
+
+                <div className="categoria-info">
+
+                  <h3>
+                    {categoria.nombre}
+                  </h3>
+
+                  <p>
+                    {categoria.descripcion}
+                  </p>
+
+                  <span>
+                    Ver productos →
+                  </span>
+
+                </div>
+
+              </button>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* MAS VENDIDOS */}
+      <section id="mas-vendidos" className="seccion vendidos">
+
+        <div className="contenedor">
+
+          <div className="titulo-seccion titulo-centrado">
+
+            <span>LOS FAVORITOS</span>
+
+            <h2>
+              Productos más vendidos
+            </h2>
+
+            <p>
+              Descubre algunos de los productos favoritos de nuestros clientes.
+            </p>
+
+          </div>
+
+
+          <div className="carrusel">
+
+            <button
+              className="flecha"
+              onClick={productoAnterior}
+              aria-label="Producto anterior"
+            >
+              ←
+            </button>
+
+
+            <div className="producto-carrusel">
+
+              <div className="producto-imagen">
+
+                <div className="producto-icono">
+                  {producto.icono}
+                </div>
+
+                <span className="producto-etiqueta">
+                  Más vendido
+                </span>
+
+              </div>
+
+
+              <div className="producto-info">
+
+                <span className="producto-categoria">
+                  {producto.categoria}
+                </span>
+
+                <h3>
+                  {producto.nombre}
+                </h3>
+
+                <p>
+                  {producto.descripcion}
+                </p>
+
+                <div className="producto-abajo">
+
+                  <strong>
+                    {producto.precio}
+                  </strong>
+
+                  <button className="agregar">
+                    + Agregar
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <button
+              className="flecha"
+              onClick={siguienteProducto}
+              aria-label="Siguiente producto"
+            >
+              →
+            </button>
+
+          </div>
+
+
+          <div className="indicadores">
+
+            {productos.map((_, index) => (
+
+              <button
+                key={index}
+                onClick={() => setProductoActual(index)}
+                className={
+                  index === productoActual
+                    ? "indicador activo"
+                    : "indicador"
+                }
+                aria-label={`Producto ${index + 1}`}
+              />
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* FOOTER */}
+      <footer className="footer">
+
+        <div className="contenedor footer-contenido">
+
+          <div>
+            <h3>✏️ Papelería</h3>
+            <p>
+              Todo lo que necesitas en un solo lugar.
+            </p>
+          </div>
+
+          <div>
+            <p>
+              © 2026 Papelería. Todos los derechos reservados.
+            </p>
+          </div>
+
+        </div>
+
+      </footer>
+
+    </main>
   );
 }
