@@ -16,6 +16,69 @@ export default function CarritoPage() {
 
   const [nombre, setNombre] = useState("");
   const [comentarios, setComentarios] = useState("");
+  const [metodoPago, setMetodoPago] = useState("");
+  const [fechaRecogida, setFechaRecogida] = useState("");
+  const [horaRecogida, setHoraRecogida] = useState("");
+
+  const obtenerHorarios = (fecha: string) => {
+    if (!fecha) {
+      return [];
+    }
+
+    // Evitamos problemas de zona horaria
+    const [año, mes, dia] = fecha.split("-").map(Number);
+
+    const fechaSeleccionada = new Date(año, mes - 1, dia);
+
+    const diaSemana = fechaSeleccionada.getDay();
+
+    const horarios: string[] = [];
+
+    const agregarHorarios = (
+      horaInicio: number,
+      minutoInicio: number,
+      horaFin: number,
+      minutoFin: number
+    ) => {
+      let minutos =
+        horaInicio * 60 + minutoInicio;
+
+      const limite =
+        horaFin * 60 + minutoFin;
+
+      while (minutos <= limite) {
+        const hora = Math.floor(minutos / 60);
+        const minuto = minutos % 60;
+
+        const horaTexto = String(hora).padStart(2, "0");
+        const minutoTexto = String(minuto).padStart(2, "0");
+
+        horarios.push(
+          `${horaTexto}:${minutoTexto}`
+        );
+
+        minutos += 30;
+      }
+    };
+
+    // Domingo
+    if (diaSemana === 0) {
+      agregarHorarios(11, 0, 15, 0);
+    }
+
+    // Lunes a viernes
+    else if (diaSemana >= 1 && diaSemana <= 5) {
+      agregarHorarios(10, 0, 15, 30);
+      agregarHorarios(16, 30, 20, 0);
+    }
+
+    // Sábado
+    else if (diaSemana === 6) {
+      agregarHorarios(10, 0, 15, 30);
+    }
+
+    return horarios;
+  };
 
   const enviarWhatsApp = () => {
     if (carrito.length === 0) {
@@ -27,6 +90,20 @@ export default function CarritoPage() {
       alert("Por favor escribe tu nombre antes de enviar el pedido.");
       return;
     }
+    if (!metodoPago) {
+      alert("Por favor selecciona un método de pago.");
+      return;
+    }
+
+    if (!fechaRecogida) {
+      alert("Por favor selecciona la fecha de recogida.");
+      return;
+    }
+
+    if (!horaRecogida) {
+      alert("Por favor selecciona la hora de recogida.");
+      return;
+    }
 
     const telefono = "524621759813";
 
@@ -35,6 +112,9 @@ export default function CarritoPage() {
     mensaje += "[NUEVO PEDIDO - PAPELERÍA]\n\n";
 
     mensaje += "Cliente: " + nombre.trim() + "\n\n";
+    mensaje += "Método de pago: " + metodoPago + "\n";
+    mensaje += "Fecha de recogida: " + fechaRecogida + "\n";
+    mensaje += "Hora de recogida: " + horaRecogida + "\n\n";
 
     mensaje += "[PRODUCTOS]\n\n";
 
@@ -376,6 +456,133 @@ export default function CarritoPage() {
                         fontWeight: 600,
                       }}
                     >
+
+                        {/* MÉTODO DE PAGO */}
+                        <label
+                          style={{
+                            display: "block",
+                            marginTop: "20px",
+                            marginBottom: "8px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          Método de pago *
+                        </label>
+
+                        <select
+                          value={metodoPago}
+                          onChange={(e) => setMetodoPago(e.target.value)}
+                          style={{
+                            width: "100%",
+                            padding: "13px 15px",
+                            borderRadius: "10px",
+                            border: "1px solid #d9deea",
+                            fontSize: "15px",
+                            outline: "none",
+                            background: "white",
+                            boxSizing: "border-box",
+                          }}
+                        >
+                          <option value="">
+                            Selecciona un método de pago
+                          </option>
+
+                          <option value="Transferencia">
+                            Transferencia
+                          </option>
+
+                          <option value="Efectivo">
+                            Efectivo
+                          </option>
+
+                          <option value="Tarjeta">
+                            Tarjeta
+                          </option>
+                        </select>
+
+                        {/* FECHA DE RECOGIDA */}
+                        <label
+                          style={{
+                            display: "block",
+                            marginTop: "20px",
+                            marginBottom: "8px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          Fecha de recogida *
+                        </label>
+
+                        <input
+                          type="date"
+                          value={fechaRecogida}
+                          onChange={(e) => {
+                            setFechaRecogida(e.target.value);
+                            setHoraRecogida("");
+                          }}
+                          min={new Date().toISOString().split("T")[0]}
+                          style={{
+                            width: "100%",
+                            padding: "13px 15px",
+                            borderRadius: "10px",
+                            border: "1px solid #d9deea",
+                            fontSize: "15px",
+                            outline: "none",
+                            boxSizing: "border-box",
+                          }}
+                        />
+
+                        {/* HORA DE RECOGIDA */}
+                        <label
+                          style={{
+                            display: "block",
+                            marginTop: "20px",
+                            marginBottom: "8px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          Hora de recogida *
+                        </label>
+
+                        <select
+                          value={horaRecogida}
+                          onChange={(e) =>
+                            setHoraRecogida(e.target.value)
+                          }
+                          disabled={!fechaRecogida}
+                          style={{
+                            width: "100%",
+                            padding: "13px 15px",
+                            borderRadius: "10px",
+                            border: "1px solid #d9deea",
+                            fontSize: "15px",
+                            outline: "none",
+                            background: fechaRecogida
+                              ? "white"
+                              : "#f3f4f6",
+                            boxSizing: "border-box",
+                            cursor: fechaRecogida
+                              ? "pointer"
+                              : "not-allowed",
+                          }}
+                        >
+                          <option value="">
+                            {fechaRecogida
+                              ? "Selecciona una hora"
+                              : "Primero selecciona una fecha"}
+                          </option>
+
+                          {obtenerHorarios(fechaRecogida).map(
+                            (hora) => (
+                              <option
+                                key={hora}
+                                value={hora}
+                              >
+                                {hora}
+                              </option>
+                            )
+                          )}
+                        </select>
+
                       Comentarios
                     </label>
 
