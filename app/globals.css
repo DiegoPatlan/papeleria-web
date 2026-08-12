@@ -791,10 +791,10 @@ a {
 
 .navegacion-categorias {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 15px;
-  margin-top: 40px;
+  margin: 25px 0 35px;
   flex-wrap: wrap;
 }
 
@@ -806,7 +806,9 @@ a {
 @media (max-width: 600px) {
   .navegacion-categorias {
     flex-direction: column;
+    align-items: stretch;
     width: 100%;
+    margin: 20px 0 30px;
   }
 
   .navegacion-categorias a {
