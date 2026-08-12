@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useCart } from "./components/CartContext";
 
 const productos = [
   {
@@ -54,6 +55,8 @@ const categorias = [
 export default function Home() {
   const [productoActual, setProductoActual] = useState(0);
 
+  const { totalProductos } = useCart();
+
   const siguienteProducto = () => {
     setProductoActual((actual) =>
       actual === productos.length - 1 ? 0 : actual + 1
@@ -94,7 +97,10 @@ export default function Home() {
             <a href="#mas-vendidos">Más vendidos</a>
           </nav>
 
-          <button className="boton-pedido">🛒 Mi pedido</button>
+          <a href="/carrito" className="boton-pedido">
+          🛒 Mi pedido ({totalProductos})
+          </a>
+          
         </div>
       </header>
 
