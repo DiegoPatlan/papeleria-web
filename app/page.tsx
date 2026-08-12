@@ -68,13 +68,17 @@ export default function Home() {
 
   const producto = productos[productoActual];
 
+  const rutas: Record<string, string> = {
+    "Productos escolares": "/escolares",
+    "Productos de oficina": "/oficina",
+    Tecnología: "/tecnologia",
+  };
+
   return (
     <main className="pagina">
-
       {/* HEADER */}
       <header className="header">
         <div className="contenedor header-contenido">
-
           <div className="logo">
             <div className="logo-icono">✏️</div>
 
@@ -90,21 +94,14 @@ export default function Home() {
             <a href="#mas-vendidos">Más vendidos</a>
           </nav>
 
-          <button className="boton-pedido">
-            🛒 Mi pedido
-          </button>
-
+          <button className="boton-pedido">🛒 Mi pedido</button>
         </div>
       </header>
 
-
       {/* HERO */}
       <section id="inicio" className="hero">
-
         <div className="contenedor hero-contenido">
-
           <div className="hero-texto">
-
             <span className="etiqueta">
               ✨ Todo lo que necesitas en un solo lugar
             </span>
@@ -116,8 +113,8 @@ export default function Home() {
             </h2>
 
             <p>
-              Encuentra fácilmente los productos que necesitas y
-              arma tu pedido para enviarlo directamente por WhatsApp.
+              Encuentra fácilmente los productos que necesitas y arma tu
+              pedido para enviarlo directamente por WhatsApp.
             </p>
 
             <div className="hero-botones">
@@ -129,23 +126,15 @@ export default function Home() {
                 Más vendidos →
               </a>
             </div>
-
           </div>
 
           <div className="hero-ilustracion">
+            <div className="tarjeta-flotante tarjeta-1">📚</div>
 
-            <div className="tarjeta-flotante tarjeta-1">
-              📚
-            </div>
-
-            <div className="tarjeta-flotante tarjeta-2">
-              💻
-            </div>
+            <div className="tarjeta-flotante tarjeta-2">💻</div>
 
             <div className="hero-producto">
-              <div className="hero-producto-icono">
-                ✏️
-              </div>
+              <div className="hero-producto-icono">✏️</div>
 
               <h3>
                 Todo para tus
@@ -153,98 +142,60 @@ export default function Home() {
                 proyectos
               </h3>
 
-              <p>
-                Escolar • Oficina • Tecnología
-              </p>
+              <p>Escolar • Oficina • Tecnología</p>
             </div>
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* CATEGORIAS */}
       <section id="categorias" className="seccion categorias">
-
         <div className="contenedor">
-
           <div className="titulo-seccion">
             <span>ENCUENTRA LO QUE NECESITAS</span>
 
-            <h2>
-              Compra por categoría
-            </h2>
+            <h2>Compra por categoría</h2>
 
-            <p>
-              Selecciona una categoría para comenzar tu pedido.
-            </p>
+            <p>Selecciona una categoría para comenzar tu pedido.</p>
           </div>
-
 
           <div className="categorias-grid">
-
             {categorias.map((categoria) => (
-
-              <button
+              <a
                 key={categoria.nombre}
+                href={rutas[categoria.nombre]}
                 className="categoria-card"
               >
-
-                <div className="categoria-icono">
-                  {categoria.icono}
-                </div>
+                <div className="categoria-icono">{categoria.icono}</div>
 
                 <div className="categoria-info">
+                  <h3>{categoria.nombre}</h3>
 
-                  <h3>
-                    {categoria.nombre}
-                  </h3>
+                  <p>{categoria.descripcion}</p>
 
-                  <p>
-                    {categoria.descripcion}
-                  </p>
-
-                  <span>
-                    Ver productos →
-                  </span>
-
+                  <span>Ver productos →</span>
                 </div>
-
-              </button>
-
+              </a>
             ))}
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* MAS VENDIDOS */}
       <section id="mas-vendidos" className="seccion vendidos">
-
         <div className="contenedor">
-
           <div className="titulo-seccion titulo-centrado">
-
             <span>LOS FAVORITOS</span>
 
-            <h2>
-              Productos más vendidos
-            </h2>
+            <h2>Productos más vendidos</h2>
 
             <p>
-              Descubre algunos de los productos favoritos de nuestros clientes.
+              Descubre algunos de los productos favoritos de nuestros
+              clientes.
             </p>
-
           </div>
 
-
           <div className="carrusel">
-
             <button
               className="flecha"
               onClick={productoAnterior}
@@ -253,52 +204,29 @@ export default function Home() {
               ←
             </button>
 
-
             <div className="producto-carrusel">
-
               <div className="producto-imagen">
+                <div className="producto-icono">{producto.icono}</div>
 
-                <div className="producto-icono">
-                  {producto.icono}
-                </div>
-
-                <span className="producto-etiqueta">
-                  Más vendido
-                </span>
-
+                <span className="producto-etiqueta">Más vendido</span>
               </div>
 
-
               <div className="producto-info">
-
                 <span className="producto-categoria">
                   {producto.categoria}
                 </span>
 
-                <h3>
-                  {producto.nombre}
-                </h3>
+                <h3>{producto.nombre}</h3>
 
-                <p>
-                  {producto.descripcion}
-                </p>
+                <p>{producto.descripcion}</p>
 
                 <div className="producto-abajo">
+                  <strong>{producto.precio}</strong>
 
-                  <strong>
-                    {producto.precio}
-                  </strong>
-
-                  <button className="agregar">
-                    + Agregar
-                  </button>
-
+                  <button className="agregar">+ Agregar</button>
                 </div>
-
               </div>
-
             </div>
-
 
             <button
               className="flecha"
@@ -307,14 +235,10 @@ export default function Home() {
             >
               →
             </button>
-
           </div>
 
-
           <div className="indicadores">
-
             {productos.map((_, index) => (
-
               <button
                 key={index}
                 onClick={() => setProductoActual(index)}
@@ -325,38 +249,25 @@ export default function Home() {
                 }
                 aria-label={`Producto ${index + 1}`}
               />
-
             ))}
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* FOOTER */}
       <footer className="footer">
-
         <div className="contenedor footer-contenido">
-
           <div>
             <h3>✏️ Papelería</h3>
-            <p>
-              Todo lo que necesitas en un solo lugar.
-            </p>
+
+            <p>Todo lo que necesitas en un solo lugar.</p>
           </div>
 
           <div>
-            <p>
-              © 2026 Papelería. Todos los derechos reservados.
-            </p>
+            <p>© 2026 Papelería. Todos los derechos reservados.</p>
           </div>
-
         </div>
-
       </footer>
-
     </main>
   );
 }
