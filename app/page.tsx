@@ -260,6 +260,85 @@ export default function Home() {
         </div>
       </section>
 
+      {/* UBICACIÓN */}
+      <section className="seccion ubicacion" id="ubicacion">
+        <div className="contenedor">
+
+          <div className="titulo-seccion">
+            <span>VISÍTANOS</span>
+
+            <h2>Encuéntranos</h2>
+
+            <p>
+              Ven a visitarnos y encuentra todo lo que necesitas
+              en Papelería Martínez.
+            </p>
+          </div>
+
+          <div className="ubicacion-contenido">
+
+            {/* INFORMACIÓN */}
+            <div className="ubicacion-info">
+
+              <div className="ubicacion-icono">
+                📍
+              </div>
+
+              <div>
+                <h3>Ubicación</h3>
+
+                <p>
+                  AV. 5 DE MAYO S/N<br />
+                  LOCAL 30 Y 31<br />
+                  Silao de la Victoria, Gto.
+                </p>
+              </div>
+
+              {/* BOTÓN CÓMO LLEGAR */}
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=AV.%205%20DE%20MAYO%20S%2FN%20LOCAL%2030%20Y%2031%2C%20Silao%20de%20la%20Victoria%2C%20Gto."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="boton-principal"
+              >
+                📍 Cómo llegar
+              </a>
+
+            </div>
+
+            {/* MAPA */}
+            <div className="ubicacion-mapa">
+
+              {/* MAPA CLICKEABLE */}
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=AV.%205%20DE%20MAYO%20S%2FN%20LOCAL%2030%20Y%2031%2C%20Silao%20de%20la%20Victoria%2C%20Gto."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ubicacion-mapa-link"
+                aria-label="Abrir ubicación en Google Maps"
+              >
+                <iframe
+                  src="https://www.google.com/maps?q=AV.%205%20DE%20MAYO%20S%2FN%20LOCAL%2030%20Y%2031%2C%20Silao%20de%20la%20Victoria%2C%20Gto.&output=embed"
+                  width="100%"
+                  height="350"
+                  style={{
+                    border: 0,
+                    borderRadius: "18px",
+                    pointerEvents: "none",
+                  }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="footer">
         <div className="contenedor footer-contenido">
