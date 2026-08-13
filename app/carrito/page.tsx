@@ -268,11 +268,27 @@ export default function CarritoPage() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontSize: "32px",
+                            overflow: "hidden",
                             flexShrink: 0,
                           }}
                         >
-                          {producto.icono}
+                          {producto.imagen ? (
+                            <img
+                              src={producto.imagen}
+                              alt={producto.nombre}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "contain",
+                                padding: "5px",
+                                boxSizing: "border-box",
+                              }}
+                            />
+                          ) : (
+                            <span style={{ fontSize: "32px" }}>
+                              {producto.icono}
+                            </span>
+                          )}
                         </div>
 
                         {/* INFORMACIÓN */}

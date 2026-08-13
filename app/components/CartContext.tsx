@@ -14,7 +14,8 @@ export type ProductoCarrito = {
   precio: number;
   cantidad: number;
   categoria: string;
-  icono: string;
+  icono?: string;
+  imagen?: string;
 };
 
 type CartContextType = {

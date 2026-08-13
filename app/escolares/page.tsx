@@ -9,7 +9,7 @@ const productos = [
     nombre: "Cuaderno profesional",
     descripcion: "Cuaderno de pasta resistente para uso escolar.",
     precio: 45,
-    icono: "📓",
+    imagen: "https://papeleriadelahorro.mx/cdn/shop/products/75613027_1920x.jpg?v=1751743423",
   },
   {
     id: 2,
@@ -148,7 +148,19 @@ export default function EscolaresPage() {
               return (
                 <div className="categoria-card" key={producto.id}>
                   <div className="categoria-icono">
-                    {producto.icono}
+                    {producto.imagen ? (
+                      <img
+                        src={producto.imagen}
+                        alt={producto.nombre}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    ) : (
+                      producto.icono
+                    )}
                   </div>
 
                   <div className="categoria-info">
@@ -205,6 +217,7 @@ export default function EscolaresPage() {
                             cantidad: 1,
                             categoria: "Escolares",
                             icono: producto.icono,
+                            imagen: producto.imagen,
                           })
                         }
                         style={{

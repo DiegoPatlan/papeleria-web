@@ -9,7 +9,7 @@ const productos = [
     nombre: "Paquete de hojas",
     descripcion: "500 hojas tamaño carta para impresión.",
     precio: 119,
-    icono: "📄",
+    imagen: "https://chedrauimx.vtexassets.com/arquivos/ids/75119374-1600-1600?width=1600&height=1600&aspect=true",
   },
   {
     id: 2,
@@ -146,10 +146,29 @@ export default function OficinaPage() {
                   className="categoria-card"
                   key={producto.id}
                 >
-                  <div className="categoria-icono">
-                    {producto.icono}
+                  <div
+                    className="categoria-icono"
+                    style={{
+                      overflow: "hidden",
+                    }}
+                  >
+                    {producto.imagen ? (
+                      <img
+                        src={producto.imagen}
+                        alt={producto.nombre}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          padding: "5px",
+                          boxSizing: "border-box",
+                        }}
+                      />
+                    ) : (
+                      <span>{producto.icono}</span>
+                    )}
                   </div>
-
+                  
                   <div className="categoria-info">
                     <h3>{producto.nombre}</h3>
 
@@ -204,6 +223,7 @@ export default function OficinaPage() {
                             cantidad: 1,
                             categoria: "Oficina",
                             icono: producto.icono,
+                            imagen: producto.imagen,
                           })
                         }
                         style={{

@@ -9,7 +9,7 @@ const productos = [
     nombre: "Memoria USB 64 GB",
     descripcion: "Almacenamiento rápido para tus archivos.",
     precio: 149,
-    icono: "💾",
+    imagen: "https://www.officedepot.com.mx/medias/64779.gif-1200ftw?context=bWFzdGVyfHJvb3R8MTIzODQyfGltYWdlL2pwZWd8YURZeUwyaGtNQzg1TkRFMk5qRTFPREl4TXpReUxtcHdad3wzNDBmZjBmZTRjOTc1ZGM3MGMyZGI2MzI0MzAwMTMwYzI1ODEwZjEyNGNjM2I3MjQwMTQ5MTcwZjQyZjI3Zjdm",
   },
   {
     id: 2,
@@ -146,8 +146,27 @@ export default function TecnologiaPage() {
                   className="categoria-card"
                   key={producto.id}
                 >
-                  <div className="categoria-icono">
-                    {producto.icono}
+                  <div
+                    className="categoria-icono"
+                    style={{
+                      overflow: "hidden",
+                    }}
+                  >
+                    {producto.imagen ? (
+                      <img
+                        src={producto.imagen}
+                        alt={producto.nombre}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "contain",
+                          padding: "5px",
+                          boxSizing: "border-box",
+                        }}
+                      />
+                    ) : (
+                      <span>{producto.icono}</span>
+                    )}
                   </div>
 
                   <div className="categoria-info">
@@ -204,6 +223,7 @@ export default function TecnologiaPage() {
                             cantidad: 1,
                             categoria: "Tecnología",
                             icono: producto.icono,
+                            imagen: producto.imagen,
                           })
                         }
                         style={{
