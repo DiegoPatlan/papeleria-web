@@ -503,10 +503,16 @@ export default function CarritoPage() {
                         {/* FECHA DE RECOGIDA */}
                         <label
                           style={{
+                            width: "100%",
+                            maxWidth: "100%",
+                            minWidth: 0,
+                            padding: "13px 15px",
+                            borderRadius: "10px",
+                            border: "1px solid #d9deea",
+                            fontSize: "15px",
+                            outline: "none",
+                            boxSizing: "border-box",
                             display: "block",
-                            marginTop: "20px",
-                            marginBottom: "8px",
-                            fontWeight: 600,
                           }}
                         >
                           Fecha de recogida *
