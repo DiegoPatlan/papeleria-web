@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Papelería",
+  title: "Papelería Martínez",
   description: "Todo lo que necesitas en un solo lugar.",
 };
 
