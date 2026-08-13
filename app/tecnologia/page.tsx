@@ -48,8 +48,52 @@ const productos = [
   },
 ];
 
+const normalizarTexto = (texto: string) => {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+};
+
+const buscarProductos = (texto: string) => {
+  const busquedaNormalizada = normalizarTexto(texto).trim();
+
+  if (!busquedaNormalizada) {
+    return productos;
+  }
+
+  const palabras = busquedaNormalizada.split(/\s+/);
+
+  return productos
+    .map((producto) => {
+      const nombre = normalizarTexto(producto.nombre);
+      const descripcion = normalizarTexto(producto.descripcion);
+
+      let puntos = 0;
+
+      palabras.forEach((palabra) => {
+        if (nombre.includes(palabra)) {
+          puntos += 3;
+        }
+
+        if (descripcion.includes(palabra)) {
+          puntos += 1;
+        }
+      });
+
+      return {
+        ...producto,
+        puntos,
+      };
+    })
+    .filter((producto) => producto.puntos > 0)
+    .sort((a, b) => b.puntos - a.puntos);
+};
+
+
 export default function TecnologiaPage() {
   const [mostrarCategorias, setMostrarCategorias] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
   const [imagenPrevia, setImagenPrevia] = useState<string | null>(null);
   const {
     carrito,
@@ -58,6 +102,9 @@ export default function TecnologiaPage() {
     totalProductos,
     totalPedido,
   } = useCart();
+
+  const productosFiltrados = buscarProductos(busqueda);
+
 
   return (
     <main className="pagina">
@@ -131,9 +178,89 @@ export default function TecnologiaPage() {
             </div>
           </div>
 
+
+          {/* BUSCADOR */}
+          <div
+            style={{
+              marginTop: "30px",
+              marginBottom: "30px",
+              position: "relative",
+            }}
+          >
+            <input
+              type="text"
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+              placeholder="🔎 Buscar productos de tecnología..."
+              style={{
+                width: "100%",
+                padding: "15px 18px",
+                borderRadius: "12px",
+                border: "1px solid #d9deea",
+                fontSize: "16px",
+                outline: "none",
+                boxSizing: "border-box",
+                background: "white",
+              }}
+            />
+          </div>
+
+          {busqueda.trim() && (
+            <p
+              style={{
+                marginTop: "-15px",
+                marginBottom: "20px",
+                color: "#7b8494",
+                fontSize: "14px",
+              }}
+            >
+              {productosFiltrados.length === 0
+                ? `No encontramos productos para "${busqueda}"`
+                : `${productosFiltrados.length} ${productosFiltrados.length === 1
+                  ? "producto encontrado"
+                  : "productos encontrados"
+                }`}
+            </p>
+          )}
+
           {/* PRODUCTOS */}
           <div className="categorias-grid">
-            {productos.map((producto) => {
+            {productosFiltrados.length === 0 && busqueda.trim() ? (
+              <div
+                style={{
+                  gridColumn: "1 / -1",
+                  background: "white",
+                  border: "1px solid #e5e9f0",
+                  borderRadius: "18px",
+                  padding: "45px 25px",
+                  textAlign: "center",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "45px",
+                    marginBottom: "15px",
+                  }}
+                >
+                  🔍
+                </div>
+
+                <h3 style={{ marginBottom: "8px" }}>
+                  No encontramos productos para "{busqueda}"
+                </h3>
+
+                <p
+                  style={{
+                    color: "#7b8494",
+                    margin: 0,
+                  }}
+                >
+                  Intenta buscar con otra palabra.
+                </p>
+              </div>
+            ) : (
+              productosFiltrados.map((producto) => {
+
               const productoCarrito = carrito.find(
                 (item) =>
                   item.id === producto.id &&
@@ -250,7 +377,8 @@ export default function TecnologiaPage() {
                   </div>
                 </div>
               );
-            })}
+            })
+           )}
           </div>
 
           {/* RESUMEN */}
