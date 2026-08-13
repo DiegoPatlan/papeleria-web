@@ -270,7 +270,7 @@ export default function Home() {
           </div>
 
           <div>
-            <p>© 2026 Papelería. Todos los derechos reservados.</p>
+            <p>© 2026 Soporte TI, Todos los derechos</p>
           </div>
         </div>
       </footer>
