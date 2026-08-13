@@ -50,6 +50,7 @@ const productos = [
 
 export default function EscolaresPage() {
   const [mostrarCategorias, setMostrarCategorias] = useState(false);
+  const [imagenPrevia, setImagenPrevia] = useState<string | null>(null);
   const {
     carrito,
     agregarProducto,
@@ -147,7 +148,18 @@ export default function EscolaresPage() {
 
               return (
                 <div className="categoria-card" key={producto.id}>
-                  <div className="categoria-icono">
+                  <div
+                    className="categoria-icono"
+                    style={{
+                      overflow: "hidden",
+                      cursor: producto.imagen ? "pointer" : "default",
+                    }}
+                    onClick={() => {
+                      if (producto.imagen) {
+                        setImagenPrevia(producto.imagen);
+                      }
+                    }}
+                  >
                     {producto.imagen ? (
                       <img
                         src={producto.imagen}
@@ -156,10 +168,12 @@ export default function EscolaresPage() {
                           width: "100%",
                           height: "100%",
                           objectFit: "contain",
+                          padding: "5px",
+                          boxSizing: "border-box",
                         }}
                       />
                     ) : (
-                      producto.icono
+                      <span>{producto.icono}</span>
                     )}
                   </div>
 
@@ -291,6 +305,65 @@ export default function EscolaresPage() {
         </div>
       </section>
 
+
+      {imagenPrevia && (
+        <div
+          onClick={() => setImagenPrevia(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0, 0, 0, 0.75)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            padding: "20px",
+            boxSizing: "border-box",
+            cursor: "zoom-out",
+          }}
+        >
+          <button
+            onClick={() => setImagenPrevia(null)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "25px",
+              width: "45px",
+              height: "45px",
+              border: "none",
+              borderRadius: "50%",
+              background: "white",
+              color: "#333",
+              fontSize: "25px",
+              cursor: "pointer",
+              zIndex: 10000,
+            }}
+          >
+            ×
+          </button>
+
+          <img
+            src={imagenPrevia}
+            alt="Previsualización del producto"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "90%",
+              maxHeight: "85%",
+              objectFit: "contain",
+              borderRadius: "15px",
+              background: "white",
+              padding: "10px",
+              boxSizing: "border-box",
+              cursor: "default",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+            }}
+          />
+        </div>
+      )}
+      
       {/* FOOTER */}
       <footer className="footer">
         <div className="contenedor footer-contenido">

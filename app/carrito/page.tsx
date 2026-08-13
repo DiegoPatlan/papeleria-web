@@ -19,6 +19,7 @@ export default function CarritoPage() {
   const [metodoPago, setMetodoPago] = useState("");
   const [fechaRecogida, setFechaRecogida] = useState("");
   const [horaRecogida, setHoraRecogida] = useState("");
+  const [imagenPrevia, setImagenPrevia] = useState<string | null>(null);
 
   const obtenerHorarios = (fecha: string) => {
     if (!fecha) {
@@ -276,12 +277,14 @@ export default function CarritoPage() {
                             <img
                               src={producto.imagen}
                               alt={producto.nombre}
+                              onClick={() => setImagenPrevia(producto.imagen!)}
                               style={{
                                 width: "100%",
                                 height: "100%",
                                 objectFit: "contain",
                                 padding: "5px",
                                 boxSizing: "border-box",
+                                cursor: "pointer",
                               }}
                             />
                           ) : (
@@ -738,6 +741,67 @@ export default function CarritoPage() {
         </div>
       </section>
 
+
+      {imagenPrevia && (
+        <div
+          onClick={() => setImagenPrevia(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0, 0, 0, 0.75)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            padding: "20px",
+            boxSizing: "border-box",
+            cursor: "zoom-out",
+          }}
+        >
+          {/* BOTÓN CERRAR */}
+          <button
+            onClick={() => setImagenPrevia(null)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "25px",
+              width: "45px",
+              height: "45px",
+              border: "none",
+              borderRadius: "50%",
+              background: "white",
+              color: "#333",
+              fontSize: "25px",
+              cursor: "pointer",
+              zIndex: 10000,
+            }}
+          >
+            ×
+          </button>
+
+          {/* IMAGEN GRANDE */}
+          <img
+            src={imagenPrevia}
+            alt="Previsualización del producto"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "90%",
+              maxHeight: "85%",
+              objectFit: "contain",
+              borderRadius: "15px",
+              background: "white",
+              padding: "10px",
+              boxSizing: "border-box",
+              cursor: "default",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+            }}
+          />
+        </div>
+      )}
+      
       {/* FOOTER */}
       <footer className="footer">
         <div className="contenedor footer-contenido">
