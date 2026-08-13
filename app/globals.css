@@ -1338,3 +1338,88 @@ button[style*="#25D366"] {
   background: #f4f6f8;
   color: #c62828;
 }
+
+.navegacion-categorias {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.boton-secundario,
+.boton-principal {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Volver al inicio */
+.boton-secundario {
+  background: #f1f4f8;
+  color: #17365d;
+  border: 1px solid #dce3eb;
+}
+
+.boton-secundario:hover {
+  background: #e5eaf0;
+}
+
+/* Contenedor del selector */
+.selector-categorias {
+  position: relative;
+}
+
+/* Elegir otra categoría */
+.boton-principal {
+  background: #c62828;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.boton-principal:hover {
+  background: #a91f1f;
+  transform: translateY(-1px);
+}
+
+/* Flecha */
+.flecha-categorias {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* Menú desplegable */
+.menu-categorias {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 210px;
+  background: white;
+  border: 1px solid #e1e6ec;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  z-index: 1000;
+}
+
+/* Opciones */
+.menu-categorias a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: #17365d;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.menu-categorias a:hover {
+  background: #f4f6f8;
+  color: #c62828;
+}
