@@ -86,7 +86,7 @@ export default function Home() {
             <div className="logo-icono">✏️</div>
 
             <div>
-              <h1>Papelería</h1>
+              <h1>Papelería Martínez</h1>
               <span>Todo para ti</span>
             </div>
           </div>
@@ -264,7 +264,7 @@ export default function Home() {
       <footer className="footer">
         <div className="contenedor footer-contenido">
           <div>
-            <h3>✏️ Papelería</h3>
+            <h3>✏️ Papelería Martínez</h3>
 
             <p>Todo lo que necesitas en un solo lugar.</p>
           </div>

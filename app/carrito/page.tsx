@@ -109,7 +109,7 @@ export default function CarritoPage() {
 
     let mensaje = "";
 
-    mensaje += "[NUEVO PEDIDO - PAPELERÍA]\n\n";
+    mensaje += "[NUEVO PEDIDO - PAPELERÍA MARTÍNEZ]\n\n";
 
     mensaje += "Cliente: " + nombre.trim() + "\n\n";
     mensaje += "Método de pago: " + metodoPago + "\n";
@@ -730,7 +730,7 @@ export default function CarritoPage() {
 
           <div>
             <p>
-              © 2026 Papelería. Todos los derechos
+              © 2026 Soporte TI, Todos los derechos
               reservados.
             </p>
           </div>
