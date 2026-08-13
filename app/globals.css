@@ -1369,57 +1369,161 @@ button[style*="#25D366"] {
   background: #e5eaf0;
 }
 
-/* Contenedor del selector */
-.selector-categorias {
-  position: relative;
+/* =========================================
+   CARRITO - RESPONSIVE PARA CELULAR
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  /* Layout principal */
+  .carrito-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Productos */
+  .carrito-productos {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Cada producto */
+  .carrito-producto {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid !important;
+    grid-template-columns: 60px 1fr auto;
+    grid-template-areas:
+      "icono info eliminar"
+      "icono cantidad subtotal";
+    gap: 12px !important;
+    padding: 15px !important;
+    margin-bottom: 12px !important;
+    align-items: center;
+  }
+
+  /* Icono */
+  .carrito-producto>div:first-child {
+    grid-area: icono;
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 27px !important;
+  }
+
+  /* Información */
+  .carrito-producto>div:nth-child(2) {
+    grid-area: info;
+    min-width: 0;
+  }
+
+  .carrito-producto h3 {
+    font-size: 16px;
+    line-height: 1.25;
+    margin: 3px 0 4px !important;
+    overflow-wrap: break-word;
+  }
+
+  .carrito-producto>div:nth-child(2) span {
+    font-size: 13px;
+  }
+
+  /* Cantidad */
+  .carrito-producto>div:nth-child(3) {
+    grid-area: cantidad;
+    justify-self: start;
+  }
+
+  /* Subtotal */
+  .carrito-producto>strong {
+    grid-area: subtotal;
+    min-width: 0 !important;
+    text-align: right !important;
+    font-size: 16px;
+  }
+
+  /* Eliminar */
+  .carrito-producto>button {
+    grid-area: eliminar;
+    justify-self: end;
+    font-size: 19px !important;
+    padding: 4px;
+  }
+
+  /* Botones + y - */
+  .carrito-producto>div:nth-child(3) button {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 17px !important;
+  }
+
+  .carrito-producto>div:nth-child(3) strong {
+    min-width: 20px;
+    text-align: center;
+  }
+
+  /* Datos del pedido */
+  .carrito-productos>div:not(.carrito-producto) {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px !important;
+  }
+
+  /* Resumen */
+  .carrito-resumen {
+    position: static !important;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px !important;
+  }
+
+  /* Botón WhatsApp */
+  .carrito-resumen button {
+    font-size: 15px !important;
+  }
 }
 
-/* Elegir otra categoría */
-.boton-principal {
-  background: #c62828;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
-.boton-principal:hover {
-  background: #a91f1f;
-  transform: translateY(-1px);
-}
+/* =========================================
+   CELULARES PEQUEÑOS
+   ========================================= */
 
-/* Flecha */
-.flecha-categorias {
-  font-size: 12px;
-  margin-left: 4px;
-}
+@media (max-width: 480px) {
 
-/* Menú desplegable */
-.menu-categorias {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  min-width: 210px;
-  background: white;
-  border: 1px solid #e1e6ec;
-  border-radius: 10px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  padding: 8px;
-  z-index: 1000;
-}
+  .carrito-producto {
+    grid-template-columns: 52px 1fr auto;
+    padding: 13px !important;
+    gap: 10px !important;
+  }
 
-/* Opciones */
-.menu-categorias a {
-  display: block;
-  padding: 11px 13px;
-  border-radius: 7px;
-  text-decoration: none;
-  color: #17365d;
-  font-weight: 500;
-  transition: background 0.2s ease;
-}
+  .carrito-producto>div:first-child {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 24px !important;
+  }
 
-.menu-categorias a:hover {
-  background: #f4f6f8;
-  color: #c62828;
+  .carrito-producto h3 {
+    font-size: 15px;
+  }
+
+  .carrito-producto>div:nth-child(3) {
+    gap: 7px !important;
+  }
+
+  .carrito-producto>div:nth-child(3) button {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .carrito-producto>strong {
+    font-size: 15px;
+  }
+
+  .titulo-seccion h2 {
+    font-size: 26px;
+  }
+
+  .titulo-seccion p {
+    font-size: 14px;
+  }
 }
