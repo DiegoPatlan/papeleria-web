@@ -159,7 +159,7 @@ export default function CarritoPage() {
             <div className="logo-icono">✏️</div>
 
             <div>
-              <h1>Papelería</h1>
+              <h1>Papelería Martínez</h1>
               <span>Todo para ti</span>
             </div>
           </a>
