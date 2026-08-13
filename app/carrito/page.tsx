@@ -524,13 +524,15 @@ export default function CarritoPage() {
                             width: "100%",
                             maxWidth: "100%",
                             minWidth: 0,
-                            padding: "13px 15px",
+                            height: "48px",
+                            padding: "0 12px",
                             borderRadius: "10px",
                             border: "1px solid #d9deea",
-                            fontSize: "15px",
+                            fontSize: "16px",
                             outline: "none",
                             boxSizing: "border-box",
                             display: "block",
+                            background: "white",
                           }}
                         />
 
