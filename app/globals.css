@@ -1527,18 +1527,11 @@ button[style*="#25D366"] {
     font-size: 14px;
   }
 }
+
 input[type="date"] {
   width: 100%;
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
   display: block;
-}
-
-@media (max-width: 768px) {
-  input[type="date"] {
-    width: 100%;
-    max-width: 100%;
-    font-size: 16px;
-  }
 }
