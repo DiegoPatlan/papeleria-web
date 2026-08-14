@@ -1,52 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../components/CartContext";
+import { supabase } from "../../lib/supabase";
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Memoria USB 64 GB",
-    descripcion: "Almacenamiento rápido para tus archivos.",
-    precio: 149,
-    imagen: "https://www.officedepot.com.mx/medias/64779.gif-1200ftw?context=bWFzdGVyfHJvb3R8MTIzODQyfGltYWdlL2pwZWd8YURZeUwyaGtNQzg1TkRFMk5qRTFPREl4TXpReUxtcHdad3wzNDBmZjBmZTRjOTc1ZGM3MGMyZGI2MzI0MzAwMTMwYzI1ODEwZjEyNGNjM2I3MjQwMTQ5MTcwZjQyZjI3Zjdm",
-  },
-  {
-    id: 2,
-    nombre: "Mouse inalámbrico",
-    descripcion: "Mouse inalámbrico para computadora.",
-    precio: 199,
-    icono: "🖱️",
-  },
-  {
-    id: 3,
-    nombre: "Teclado USB",
-    descripcion: "Teclado cómodo para trabajo y estudio.",
-    precio: 249,
-    icono: "⌨️",
-  },
-  {
-    id: 4,
-    nombre: "Cable USB-C",
-    descripcion: "Cable USB-C para carga y transferencia de datos.",
-    precio: 99,
-    icono: "🔌",
-  },
-  {
-    id: 5,
-    nombre: "Audífonos",
-    descripcion: "Audífonos para música, clases y llamadas.",
-    precio: 179,
-    icono: "🎧",
-  },
-  {
-    id: 6,
-    nombre: "Adaptador USB",
-    descripcion: "Adaptador para conectar dispositivos USB.",
-    precio: 129,
-    icono: "🔗",
-  },
-];
 
 const normalizarTexto = (texto: string) => {
   return texto
@@ -55,7 +12,7 @@ const normalizarTexto = (texto: string) => {
     .replace(/[\u0300-\u036f]/g, "");
 };
 
-const buscarProductos = (texto: string) => {
+const buscarProductos = (texto: string, productos: any[]) => {
   const busquedaNormalizada = normalizarTexto(texto).trim();
 
   if (!busquedaNormalizada) {
@@ -93,8 +50,33 @@ const buscarProductos = (texto: string) => {
 
 export default function TecnologiaPage() {
   const [mostrarCategorias, setMostrarCategorias] = useState(false);
+  const [productosSupabase, setProductosSupabase] = useState<any[]>([]);
   const [busqueda, setBusqueda] = useState("");
   const [imagenPrevia, setImagenPrevia] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("🔥 SE EJECUTÓ EL USEEFFECT DE SUPABASE - TECNOLOGÍA");
+
+    const cargarProductos = async () => {
+      const { data, error } = await supabase
+        .from("productos")
+        .select("*")
+        .eq("categoria", "Tecnología")
+        .eq("activo", true);
+
+      if (error) {
+        console.error("Error cargando productos de Tecnología:", error);
+        return;
+      }
+
+      console.log("Productos de Tecnología desde Supabase:", data);
+
+      setProductosSupabase(data || []);
+    };
+
+    cargarProductos();
+  }, []);
+
   const {
     carrito,
     agregarProducto,
@@ -103,7 +85,10 @@ export default function TecnologiaPage() {
     totalPedido,
   } = useCart();
 
-  const productosFiltrados = buscarProductos(busqueda);
+  const productosFiltrados = buscarProductos(
+    busqueda,
+    productosSupabase
+  );
 
 
   return (

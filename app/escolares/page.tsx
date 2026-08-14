@@ -1,52 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../components/CartContext";
+import { supabase } from "../../lib/supabase";
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Cuaderno profesional",
-    descripcion: "Cuaderno de pasta resistente para uso escolar.",
-    precio: 45,
-    imagen: "https://papeleriadelahorro.mx/cdn/shop/products/75613027_1920x.jpg?v=1751743423",
-  },
-  {
-    id: 2,
-    nombre: "Kit de plumas",
-    descripcion: "Set de plumas de tinta azul, negra y roja.",
-    precio: 35,
-    icono: "🖊️",
-  },
-  {
-    id: 3,
-    nombre: "Lápices HB",
-    descripcion: "Paquete de lápices para escribir y dibujar.",
-    precio: 30,
-    icono: "✏️",
-  },
-  {
-    id: 4,
-    nombre: "Borrador blanco",
-    descripcion: "Borrador suave para uso escolar.",
-    precio: 12,
-    icono: "◻️",
-  },
-  {
-    id: 5,
-    nombre: "Colores",
-    descripcion: "Caja de colores para trabajos escolares.",
-    precio: 65,
-    icono: "🖍️",
-  },
-  {
-    id: 6,
-    nombre: "Regla de 30 cm",
-    descripcion: "Regla transparente para tareas y proyectos.",
-    precio: 15,
-    icono: "📏",
-  },
-];
+
 
 const normalizarTexto = (texto: string) => {
   return texto
@@ -55,7 +13,7 @@ const normalizarTexto = (texto: string) => {
     .replace(/[\u0300-\u036f]/g, "");
 };
 
-const buscarProductos = (texto: string) => {
+const buscarProductos = (texto: string, productos: any[]) => {
   const busquedaNormalizada = normalizarTexto(texto).trim();
 
   if (!busquedaNormalizada) {
@@ -92,9 +50,33 @@ const buscarProductos = (texto: string) => {
 
 export default function EscolaresPage() {
   const [mostrarCategorias, setMostrarCategorias] = useState(false);
+  const [productosSupabase, setProductosSupabase] = useState<any[]>([]);
   const [busqueda, setBusqueda] = useState("");
   const [imagenPrevia, setImagenPrevia] = useState<string | null>(null);
  
+  useEffect(() => {
+    console.log("🔥 SE EJECUTÓ EL USEEFFECT DE SUPABASE");
+
+    const cargarProductos = async () => {
+      const { data, error } = await supabase
+        .from("productos")
+        .select("*")
+        .eq("categoria", "Escolares")
+        .eq("activo", true);
+
+      if (error) {
+        console.error("Error cargando productos:", error);
+        return;
+      }
+
+      console.log("Productos de Supabase:", data);
+
+      setProductosSupabase(data || []);
+    };
+
+    cargarProductos();
+  }, []);
+
   const {
     carrito,
     agregarProducto,
@@ -104,7 +86,7 @@ export default function EscolaresPage() {
     totalPedido,
   } = useCart();
 
-  const productosFiltrados = buscarProductos(busqueda);
+  const productosFiltrados = buscarProductos(busqueda, productosSupabase);
 
   return (
     <main className="pagina">

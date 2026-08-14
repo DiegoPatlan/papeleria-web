@@ -1667,3 +1667,32 @@ input[type="date"] {
 .ubicacion-mapa-link iframe {
   display: block;
 }
+
+/* BARRA DE BÚSQUEDA DE PRODUCTOS */
+
+.barra-filtros-productos {
+    display: grid;
+    grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+    .barra-filtros-productos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* CELULAR */
+@media (max-width: 600px) {
+    .barra-filtros-productos {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .barra-filtros-productos input,
+    .barra-filtros-productos select {
+        width: 100%;
+        min-width: 0;
+    }
+}

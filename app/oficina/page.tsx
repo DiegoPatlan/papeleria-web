@@ -1,52 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../components/CartContext";
+import { supabase } from "../../lib/supabase";
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Paquete de hojas",
-    descripcion: "500 hojas tamaño carta para impresión.",
-    precio: 119,
-    imagen: "https://chedrauimx.vtexassets.com/arquivos/ids/75119374-1600-1600?width=1600&height=1600&aspect=true",
-  },
-  {
-    id: 2,
-    nombre: "Carpeta tamaño carta",
-    descripcion: "Carpeta resistente para organizar documentos.",
-    precio: 35,
-    icono: "📁",
-  },
-  {
-    id: 3,
-    nombre: "Engrapadora",
-    descripcion: "Engrapadora de escritorio para uso diario.",
-    precio: 85,
-    icono: "📎",
-  },
-  {
-    id: 4,
-    nombre: "Caja de clips",
-    descripcion: "Caja con clips metálicos para documentos.",
-    precio: 25,
-    icono: "🖇️",
-  },
-  {
-    id: 5,
-    nombre: "Notas adhesivas",
-    descripcion: "Paquete de notas adhesivas de diferentes colores.",
-    precio: 30,
-    icono: "📝",
-  },
-  {
-    id: 6,
-    nombre: "Cinta adhesiva",
-    descripcion: "Cinta transparente para oficina y documentos.",
-    precio: 22,
-    icono: "📏",
-  },
-];
 
 const normalizarTexto = (texto: string) => {
   return texto
@@ -55,7 +12,7 @@ const normalizarTexto = (texto: string) => {
     .replace(/[\u0300-\u036f]/g, "");
 };
 
-const buscarProductos = (texto: string) => {
+const buscarProductos = (texto: string, productos: any[]) => {
   const busquedaNormalizada = normalizarTexto(texto).trim();
 
   if (!busquedaNormalizada) {
@@ -92,8 +49,33 @@ const buscarProductos = (texto: string) => {
 
 export default function OficinaPage() {
   const [mostrarCategorias, setMostrarCategorias] = useState(false);
+  const [productosSupabase, setProductosSupabase] = useState<any[]>([]);
   const [busqueda, setBusqueda] = useState("");
   const [imagenPrevia, setImagenPrevia] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("🔥 SE EJECUTÓ EL USEEFFECT DE SUPABASE - OFICINA");
+
+    const cargarProductos = async () => {
+      const { data, error } = await supabase
+        .from("productos")
+        .select("*")
+        .eq("categoria", "Oficina")
+        .eq("activo", true);
+
+      if (error) {
+        console.error("Error cargando productos de Oficina:", error);
+        return;
+      }
+
+      console.log("Productos de Oficina desde Supabase:", data);
+
+      setProductosSupabase(data || []);
+    };
+
+    cargarProductos();
+  }, []);
+
   const {
     carrito,
     agregarProducto,
@@ -102,7 +84,10 @@ export default function OficinaPage() {
     totalPedido,
   } = useCart();
 
-  const productosFiltrados = buscarProductos(busqueda);
+  const productosFiltrados = buscarProductos(
+    busqueda,
+    productosSupabase
+  );
 
   return (
     <main className="pagina">
